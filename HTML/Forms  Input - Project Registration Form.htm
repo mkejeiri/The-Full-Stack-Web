@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Forms & input</title>
+</head>
+<body>
+	<form action="" method="POST">
+		<fieldset>
+			<legend>Account</legend>
+			<label>Name</label>
+			<input type="text" name="name" required>
+			<br><br>
+			<label>Email</label>
+			<input type="email" name="email" required >
+			<br><br>
+			<label>Phone</label>
+			<input type="text" name="phone" required>
+			<br><br>			
+		</fieldset>
+
+		<br><br>
+		<fieldset>
+			<legend>User info</legend>
+			<label>Location</label>
+			<select>
+				<option value="NY">NY</option>
+				<option value="CA">CA</option>
+				<option value="BO">BO</option>
+			</select>
+			<br><br>
+
+			<label>Gender</label>
+			<input type="radio" name="Gender" value="male"> Male
+			<input type="radio" name="Gender" value="female" checked> Female
+			<br><br>
+
+			<label>Interest</label>
+			<input type="checkbox" name="movies" checked> Movies
+			<input type="checkbox" name="sport" checked> Sport
+			<input type="checkbox" name="arts">Arts
+			<input type="checkbox" name="others"> Others			
+		</fieldset>
+		<br><br>	
+		<input type="submit" value="Submit">
+	</form>
+</body>
+</html>

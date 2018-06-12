@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Audio & Video</title>
+</head>
+<body>
+	<h1>Video</h1>
+	<!-- <video s<video src="http://v2v.cc/~j/theora_testsuite/320x240.ogg" controls autoplay loop>
+		your browser doesn't support video
+	</video> -->
+	<video id="myVideo" src="http://v2v.cc/~j/theora_testsuite/320x240.ogg" controls>
+		your browser doesn't support video
+	</video>
+
+	<h1>Audio</h1>
+
+<!-- <audio src="http://www.freesound.org/data/previews/95/95026_57789-lq.mp3" controls autoplay loop>
+		Your browser doesn't support audio
+	</audio>
+ --> 
+	<audio id='myAudio' src="http://www.freesound.org/data/previews/95/95026_57789-lq.mp3" controls>
+		Your browser doesn't support audio
+	</audio>
+
+
+	<div>
+	 	<button onclick="document.getElementById('myAudio').play()">play<button>
+	 	<button onclick="document.getElementById('myAudio').pause()">pause<button>
+	 	<button onclick="document.getElementById('myAudio').volume+=0.1">+volume<button>
+	 	<button onclick="document.getElementById('myAudio').volume-=0.1">-volume<button>	
+ 	</div>
+
+
+
+
+
+	<script type="text/javascript">
+		var v = document.getElementById('myVideo');
+		v.play();
+	</script>
+</body>
+</html>

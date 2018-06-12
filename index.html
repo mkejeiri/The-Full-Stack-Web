@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title> Effects & Animation - Project on Effect and Animation</title>
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <style>
+          .square1,.square2 {
+            background: black;
+            width: 60px;
+            height: 40px;
+            position: relative;
+          }
+    </style>
+  </head>
+  <body>
+    <div>
+      <div>
+        <button type="button" id="show">show</button>
+        <button type="button" id="hide">hide</button>
+        <button type="button" id="toggle">toggle</button>
+        <button type="button" id="fadeIn">fade In</button>
+        <button type="button" id="fadeOut">fade Out</button>
+        <button type="button" id="fadeToggle">fade toggle</button>
+        <button type="button" id="slideUp">slide up</button>
+        <button type="button" id="slideDown">slide down</button>
+        <button type="button" id="slideToggle">slide toggle</button>
+        <button type="button" id="stop">stop</button>
+      </div>
+      <div>
+        <p class="p">Lorem ipsum dolor sit amet, eos ei decore iuvaret gubergren, commune platonem delicata ei nam. Vero nostro delectus ne vis, tacimates maluisset voluptatum ex per. Nam vide facer lucilius eu, falli eirmod pertinacia ad sed. Dolore deseruisse vim in, an lorem option mel. Tamquam labores dolores id nec</p>
+      </div>
+      <div class="square1">
+
+      </div>
+      <br><br>
+      <button type="button" id='anim1'>Animate 1</button>
+      <br><br>
+      <div class="square2">
+
+      </div>
+      <br><br>
+      <button type="button" id='anim2'>Animate 2</button>
+    </div>
+    <script>
+      $(document).ready(function() {
+        $('#hide').click(function() {
+          $('.p').hide();
+        });
+
+        $('#show').click(function() {
+            $('.p').show();
+        });
+
+        $('#toggle').click(function() {
+            $('.p').toggle();
+        });
+
+        $('#fadeIn').click(function() {
+            $('.p').fadeIn(1000);
+        });
+
+        $('#fadeOut').click(function() {
+            $('.p').fadeOut('slow');
+        });
+
+        $('#fadeToggle').click(function() {
+            $('.p').fadeToggle(1000);
+        });
+
+        $('#slideUp').click(function() {
+            $('.p').slideUp(1000);
+        });
+
+        $('#slideDown').click(function() {
+            $('.p').slideDown(4000);
+        });
+
+        $('#slideToggle').click(function() {
+            $('.p').slideToggle(4000);
+        });
+
+        $('#stop').click(function() {
+            $('.p').stop();
+        });
+
+        //animation
+        $('#anim1').click(function() {
+          $('.square1').animate({
+            width:'+=200px',
+            height: '+=100px',
+            left:'+=250px',
+            opacity:0.5
+          });
+        });
+        //another animation example.
+        $('#anim2').click(function() {
+          var div=$('.square2');
+          div.animate({height:'200px',opacity:0.2},'slow');
+          div.animate({width:'250px',opacity:0.5},'slow');
+          div.animate({height:'100px', opacity:0.6},'slow');
+          div.animate({width:'100px',opacity:0.75},'slow');
+        });
+
+
+      });
+    </script>
+  </body>
+</html>

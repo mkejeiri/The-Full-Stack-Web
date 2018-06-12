@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>canvas</title>
+	<style>
+		#myCanvas{
+			border:1px #000 solid;
+			background: #f4f4f4;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="myCanvas" width="1000" height="1000"></canvas>
+
+	<script type="text/javascript">
+		var c=document.getElementById('myCanvas');
+		var ctx= c.getContext('2d');
+
+		//rectangle
+		ctx.fillStyle='red';
+		ctx.fillRect(100,75,700,700);
+
+	</script>
+</body>
+</html>
