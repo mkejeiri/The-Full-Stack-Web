@@ -1,0 +1,264 @@
+---------------------Project MyNote - A HTML5 App---------------------------------
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Project MyNote - A HTML5 App</title>
+	<style>
+	body{
+		font-family: Tahoma;
+		Line-Height:1.6em;
+		background:#f4f4f4;
+	}
+
+	header, footer {
+		text-align:center;		
+	}
+
+	#container {
+		width:400px;
+		margin:50px auto;
+		background:#ffffa5;
+		overflow:hidden;
+		padding:30px;
+	}
+	.clear {
+		text-decoration:none;
+		background:#333;
+		color:#fff;
+		padding:10px;
+	}
+	</style>
+	<script>
+		GetNote();
+		function GetNote(){
+			var note;
+			if(localStorage.getItem('note')){
+				note= localStorage.getItem('note');		
+			}else{
+				note= 'Go ahead and edit this note to save in local storage';
+			}
+			document.getElementById('note').innerHTML=note;
+		}
+		function saveNote(id){
+			var note = document.getElementById('note').innerHTML;
+			localStorage.setItem('note',note);
+			
+		}
+
+		function clearNote(){
+			/*var id='note';
+			document.getElementById(id).innerHTML="";
+			 saveNote(id);*/
+			clear: localStorage.clear();
+			return false;//to avoid following a link.
+
+		}
+	</script>
+
+</head>
+<body>
+	<header>
+		<h1>MyNote</h1>
+	</header>
+	<section id="container">
+		<div id="note" contenteditable="true" onkeyup="saveNote(this.id);"></div>
+	</section>
+	<footer>
+		<div><a href="" class="clear" onclick="clearNote();" >Clear Note</a></div>
+		<p>MyNote &copy; 2018</p>		
+	</footer>
+
+	<script>
+		GetNote();
+	</script>
+</body>
+</html>
+---------------------Geolocation - A HTML5 App---------------------------------
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Geolocation</title>
+</head>
+<body>
+	<button onclick="getLocalion()">Get Coords</button>
+	<h1 id="coords"></h1>
+	<script>
+		
+var x=document.getElementById('coords');
+
+function getLocalion(){
+	if (navigator.geolocation){
+		navigator.geolocation.getCurrentPosition(showPosition);		
+	}else {
+		x.innerHTML='Geolocalisation is not supported';
+	}
+}
+
+function showPosition(position){	
+	// console.log(position.coords.latitude);
+	x.innerHTML= 'Latitude: ' +position.coords.latitude+ '<br>'+'Longitude: '+position.coords.longitude;
+}
+	</script>
+</body>
+</html>
+------------------------------------------------------
+
+
+
+------------Project on HTML5 Drag and Dr<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Drag & drop</title>
+	<style>
+		#box{
+			width: 300px;
+			height: 150px;
+			padding: 10px;
+			border: 1px solid #ccc;
+		}
+	</style>
+	 <script>
+	 	var vardragEv;
+	 	var vardropEv;
+function allowDrop(ev) {
+	ev.preventDefault();
+}
+
+function drag(ev) {
+	ev.dataTransfer.setData('text',ev.target.id);
+}
+
+function drop(ev) {	
+	ev.preventDefault();
+	var data=ev.dataTransfer.getData('text');
+	ev.target.appendChild(document.getElementById(data));
+		
+}
+ </script>
+</head>
+<body>
+	<div id='box' ondrop="drop(event)" ondragover="allowDrop(event)">	
+	</div>
+	<img id="drag1" src="logo.png" draggable="true" ondragstart="drag(event)" width="291" height="145"/>
+	<h1 contenteditable="true">this text can be edited</h1>
+	
+
+</body>
+</html>
+----------------------------------------
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id='name'>	</div>
+	<div id='family'>	</div>
+ <script>
+	//keep value untill we clear cache, values stay after we close the BW.
+	if (typeof(Storage) !== "undefined"){ // Code for localStorage/sessionStorage.
+		//store an item
+		localStorage.setItem('name','John doe');
+			 
+		 //Get Item
+		console.log(localStorage.getItem('name'));	 
+		if(localStorage.name){
+			 document.getElementById('name').innerHTML=localStorage.name;	
+		}else {
+			 document.getElementById('name').innerHTML='No name found!';
+			
+		}
+	}else{
+		console.log('localStorage not available');		
+	}
+	//localStorage.removeItem('name');
+
+	//keep value untill we clear cache or close the BW.
+	if (typeof(Storage) !== "undefined"){ // Code for sessionStorage/sessionStorage.
+		//store an item
+		sessionStorage.setItem('family','No family');
+			 
+		 //Get Item
+		console.log(sessionStorage.getItem('family'));	 
+		if(sessionStorage.family){
+			 document.getElementById('family').innerHTML=sessionStorage.family;	
+		}else {
+			 document.getElementById('family').innerHTML='No name found!';
+			
+		}
+	}else{
+		console.log('sessionStorage not available');		
+	}
+	
+	//sessionStorage.removeItem('family');
+ </script>
+</body>
+</html>
+
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id='name'>
+		
+	</div>
+ <script>
+	 //store an item
+	 localStorage.setItem('name','John doe');
+	 
+	 //Get Item
+	 console.log(localStorage.getItem('name'));
+	 
+	 
+		localStorage.setItem('name', 'John doe');
+		console.log(localStorage.getItem('name'));
+		console.log(localStorage.name);
+		document.getElementById('name').innerHTML="text";
+		localStorage.removeItem('name');
+		console.log(localStorage.name);
+		console.log(localStorage.getItem('name'));
+ </script>
+</body>
+
+
+
+
+---------------Scalable Vector Graphics
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>SVG</title>
+</head>
+<body>
+
+		<svg width="300" height="300">
+		<circle cx="100" cy=100 r="80" stroke="red" stroke-width="4" fill="green"/>
+	</svg>
+	
+	<svg width="400" height="200">
+		<rect width="300" height="100" style="fill:rgb(255,0,0); stroke-width:10;stroke:rgb(0,0,0)" />		
+	</svg>
+	
+	
+	<svg width="300" height="300">
+		<polygon points="100,10 40,198 190,78 10,78 160,198" style="fill:yellow;stroke:black;stroke-width:10;fill-rule:even"/>
+	</svg>
+
+	
+	<svg height="130" width="500">
+		<ellipse cx="105" cy="70" rx="85" ry="60" fill="black"/>
+			<text fill="#ffffff" font-size="45" font-family="Tahoma" x="50" y="86">LOGO</text>
+		
+	</svg>
+
+</body>
+</html>

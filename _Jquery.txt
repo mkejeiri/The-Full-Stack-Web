@@ -1,0 +1,399 @@
+---------------------- Lecture 7 - Lecture 7 - jQuery-Image-Slider
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Coffeetech Slider</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
+	<script
+	  src="https://code.jquery.com/jquery-3.2.1.min.js"
+	  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	  crossorigin="anonymous"></script>
+	  <script src="http://malsup.github.io/jquery.cycle.all.js"></script>
+</head>
+<body>
+	<div id="container">
+		<h1>CoffeTech</h1>
+		<h3>Welcome to the coffeTech we hope you will enjoy the ride with us</h3>
+		<div class="slider">
+			<img src="img/slide1.jpg" width="640" height="426">			
+			<img src="img/slide2.jpg" width="640" height="426">
+			<img src="img/slide3.jpg" width="640" height="426">
+			<img src="img/slide4.jpg" width="640" height="426">
+			<img src="img/slide5.jpg" width="640" height="426">
+		</div>
+		<ul id="nav">
+			<li id="prev"><a href="#">Previous</a></li>
+			<li id="next"><a href="#">Next</a></li>
+		</ul>
+	</div>
+
+	<script>
+		$(document).ready(function(argument) {
+			$('.slider').cycle({
+				fx:'shuffle',
+				pause:1,
+				prev:'#prev',
+				next:'#next'
+			});
+		})
+	</script>
+</body>
+</html>
+  
+---- Css file
+ *{
+ 	margin: 0;
+ 	padding: 0;
+ 	border: 0;
+ }
+
+/*  body{
+		Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ededed+0,f6f6f6+53,ffffff+100
+		background: rgb(237,237,237); Old browsers
+		background: -moz-linear-gradient(-45deg, rgba(237,237,237,1) 0%, rgba(246,246,246,1) 53%, rgba(255,255,255,1) 100%); FF3.6-15
+		background: -webkit-linear-gradient(-45deg, rgba(237,237,237,1) 0%,rgba(246,246,246,1) 53%,rgba(255,255,255,1) 100%); Chrome10-25,Safari5.1-6
+		background: linear-gradient(135deg, rgba(237,237,237,1) 0%,rgba(246,246,246,1) 53%,rgba(255,255,255,1) 100%); W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#ffffff',GradientType=1 ); IE6-9 fallback on horizontal gradient
+}
+*/
+ h1{
+ 	font-family: 'Dancing Script', cursive;
+ 	text-align: center;
+ 	color:#666666;
+ 	font-size: 50px;
+ 	margin-bottom: 30px;
+ }
+
+ h3{
+ 	font-family: 'Dancing Script', cursive;
+ 	text-align: center;
+ 	color:#666666;
+ 	font-size: 25px;
+ 	margin-bottom: 30px;
+ }
+
+ #container{
+ 	width: 635px;
+ 	margin:100px auto 0 auto;
+ 	position: relative;
+ }
+.slider{
+	padding: 15px;
+	border:1px solid #ccc;
+	background-color: #eee;
+
+}
+
+#nav{
+	display: block;
+	width: 58px;
+	height:102px;
+	text-indent: -999999px; /*text doesn't show because replace by image*/
+	outline: none;
+}
+
+#prev a{
+	background: url('../img/prev.png');
+	width: 58px;
+	height: 102px;
+	position: absolute;
+	top:300px;
+	left:-70px;
+}
+
+
+#next a{
+	background: url('../img/next.png');
+	width: 58px;
+	height: 102px;
+	position: absolute;
+	top:300px;
+	right:-80px;
+}
+
+#next a:hover{
+	background: url('../img/next_hover.png');
+}
+
+#prev a:hover{
+	background: url('../img/prev_hover.png');
+}
+
+
+
+---------------------- Lecture 6 - Traversing & Filtering
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Traversing & filtering</title>
+	<script
+	  src="https://code.jquery.com/jquery-3.2.1.min.js"
+	  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	  crossorigin="anonymous"></script>
+
+	  <style>
+	  	.container *{
+	  		display:block;
+	  		border: 2px solid grey;
+	  		color:grey;
+	  		padding: 5px;
+	  		margin: 15px;
+  			}
+  		/* .container {
+  			margin: 10px;
+  		} */
+	  </style>
+</head>
+<body>
+	<div class="container" > container
+		<div>div [great-grantparent]
+			<ul> [ul-grandparent]
+				<li>[li-parent]
+					<span>span
+					</span>
+				</li>
+			</ul>
+		</div>
+
+		<div>[div-grandparent]
+			<p>[p-parent]
+				<span>span</span>
+			</p>
+		</div>
+		<div>[div-parent]
+			<p>p</p>
+			<span>span</span>
+			<h2>h2</h2>
+			<h3>h3</h3>
+			<p>p</p>
+		</div>
+	</div>
+	<script>
+		$(document).ready(function(argument) {
+			//Directs parent
+			//$('span').parent().css({'color':'red', 'border':'2px solid red'});
+
+			//All parents 
+			//$('span').parents().css({'color':'red', 'border':'2px solid red'});
+
+			//Only UL parents
+			//$('span').parents('ul').css({'color':'red', 'border':'2px solid red'});
+
+			//Until UL
+			//$('span').parentsUntil('ul').css({'color':'red', 'border':'2px solid red'});
+
+			//Children
+			//$('div').children().css({'color':'red','border':'2px red solid'});
+
+			//Find
+			//$('div').find('p').css({'color':'red','border':'2px red solid'});
+
+			//Siblings
+			//$('h2').Siblings('p').css({'color':'red','border':'2px red solid'});
+
+			//Next
+			//$('h2').next().css({'color':'red','border':'2px red solid'});
+
+			//NextAll
+			//$('h2').nextAll().css({'color':'red','border':'2px red solid'});  
+
+			//NextUntill
+			//$('p').nextUntil('h3').css({'color':'red','border':'2px red solid'});  
+
+			//Prev
+			//$('h2').prev().css({'color':'red','border':'2px red solid'});
+
+			//prevAll
+			//$('h2').prevAll().css({'color':'red','border':'2px red solid'});  
+
+			//prevUntil
+			//$('p').prevUntil('span').css({'color':'red','border':'2px red solid'}); 
+
+			//First
+			//$('p').first().css({'color':'red','border':'2px red solid'}); 
+
+			//Last
+			$('p').last().css({'color':'red','border':'2px red solid'}); 
+		})
+	</script>
+	
+</body>
+</html>
+
+
+---------------------- Lecture 3 - Form Events
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">	
+	<title>jQuery|basics & forms</title>
+	<!-- <script src="js/jquery-3.2.1.min.js"></script> -->
+	<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+</head>
+<body>
+	<form id="myForm">
+		<div>
+			<label>Name:</label><br>
+			<input type="text">
+		</div>
+		<div>
+			<label>Email:</label><br>
+			<input type="text">
+		</div>
+
+		<div>
+			<label>Location:</label><br>
+			<input type="text" value="New york">
+		</div>
+		<div>
+			<label>Category:</label><br>
+			<select>
+				<option value="1">Category 1</option>
+				<option value="2">Category 2</option>
+				<option value="3">Category 3</option>
+			</select>
+		</div>
+		<input type="submit" value="Submit">		
+	</form>
+	<br><br>
+	<div id="output"></div>
+
+
+
+	<script>
+		//short hand
+		$(function(e) {
+			//focus and blur events
+			$('#myForm input').focus(function(argument) {
+				$(this).css('background','pink');
+				$(this).blur(function(argument) {
+					$(this).css('background','none');
+				});
+			});
+		})
+
+		//change events
+		$('#myForm select').change(function(argument) {
+			var cat ='';
+			$('select option:selected').each(function (argument) {				
+				cat+=$(this).text() + " ";
+			});
+			$('#output').text(cat);
+		});
+
+
+		//select Event
+		$(':input').select(function(argument) {
+			$('#output').text('something was selected').show().fadeOut(3000);//1000ms=s
+		})
+
+		//submit event
+		$('#myForm').submit(function (e) {
+			e.preventDefault();
+			$('#output').text('Form Submitted');
+		})
+
+		//keyup and keydown events
+		$('#myForm').keydown(function(e) {
+			$('#output').text('You are typing...');
+			$(this).keyup(function (ev) {
+				$('#output').text('');
+			})
+		})
+
+		/*
+		//long hand 
+		$(document).ready(function(e) {
+			alert('hello');
+		})
+
+		*/
+	</script>
+	
+</body>
+</html>
+
+---------------------- Lecture 2 - Selectors & Mouse Events
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery|basics & events</title>
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<style>
+		#square{
+			background: red;
+			width: 200px;
+			height:200px;
+		}
+	</style>
+
+</head>
+<body>
+	<p class="p1">this is a paragraph</p>
+	<p>this is another paragraph</p>
+	<button id="myBtn">click</button>
+	<br><br>
+	<div id="square"></div>
+	<br><br>
+	<div id="output"></div>
+
+
+
+	<script>
+		$(document).ready(function() {
+
+			$("#square").mousemove(function(e) {
+				msg='Mouse position: ';
+				msg+=e.pageX + ' - ' + e.pageY;
+				$('#output').html('<div>'+msg+'</div>');
+			});
+
+
+			
+			$('#square').mousedown(function(e) {
+				$(this).text('hovering...');				
+			})
+
+			$('#square').mouseup(function (ev) {
+				$(this).text('');
+			})
+			$('#square').mouseenter(function(e) {
+				$(this).text('hovering...');
+			});
+
+			$('#square').mouseout(function(ev) {
+				$(this).text('');
+			})
+			$('#square').hover(function(e) {
+				$(this).text('hovering...');
+			
+			}, function (ev) {
+				$(this).text('');
+			})
+
+			$('.p1').hide();
+			//short hand syntax
+			$('#myBtn').click(function(e) {				
+				console.log('you just clicked');
+			})
+
+			//long hand syntax
+			$('#myBtn').on('click',function(e) {
+				console.log('you just clicked');
+			})
+			$('#myBtn').click(function(e) {
+				$('.p1').hide();
+				$('.p1').toggle();
+
+			})
+		});		
+	</script>
+</body>
+</html>

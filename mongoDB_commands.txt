@@ -1,0 +1,234 @@
+//Show all dbs
+show dbs
+
+//Drop db
+//first use myDB to get inside myDb
+db.dropDatabase();
+
+//Create a 'projectmanagement' db
+use projectmanagement
+
+//Create a collection
+
+
+
+//show all collections from db
+show collections
+
+
+// Find all projects
+db.projects.find();
+db.projects.find().pretty();
+
+// Match condition
+db.projects.find({name: 'Company Website'}).pretty();
+db.projects.find({technologies: 'Ruby On Rails'}).pretty();
+
+// Match object
+db.projects.find(
+   {
+      client: {
+         name: 'Harry White',
+         email: 'hwhite@gmail.com',
+         phone: '333-333-3333'
+      }
+   }
+);
+
+// Match property in object
+db.projects.find({"client.name": "Steven Smith"});
+
+// Find by regex
+db.projects.find({name: /^R/}).pretty();
+
+// FindOne
+db.projects.findOne();
+db.projects.findOne({name:'Blog Application'});
+
+// Specify what to return
+db.projects.find({},{name:1, client:1}).pretty();
+
+// Exclude
+db.projects.find({},{developers:0, client:0}).pretty();
+
+
+// Sort
+db.projects.find({}, {name: 1, client: 1}).sort({name: -1}).pretty();
+
+// Limit
+db.projects.find({}, {name: 1, client: 1}).limit(3).pretty();
+
+//Skip
+db.projects.find({}, {name: 1, client: 1}).skip(2).pretty();
+
+// Count
+db.projects.find().count();
+
+// Cursor Var
+var myCursor = db.projects.find();
+
+myCursor.next();
+
+myCursor.hasNext() ? myCursor.next() : null;
+
+myCursor.forEach(printjson);
+
+/**************/
+aggregate
+/**************/
+
+// $eq
+db.projects.find({cost: {$eq: 2000}});
+
+// $ne
+db.projects.find({cost: {$ne: 2000}}).pretty();
+
+// $exists
+db.projects.find({cost: {$exists: true}}).pretty();
+
+// $gt - $lt
+db.projects.find({cost: {$gt: 10000}}).pretty();
+db.projects.find({cost: {$gte: 10000}}).pretty();
+db.projects.find({cost: {$lt: 10000}}).pretty();
+db.projects.find({cost: {$lte: 10000}}).pretty();
+
+// $in
+db.projects.find({
+	category: {$in:['Web Deisgn', 'Web Programming']}
+}).pretty();
+
+// $and - $or
+db.projects.find({$or: [{cost: {$eq: 2000}}, {cost: {$gt: 10000}}]});
+
+db.projects.find({$and: [{category: {$eq: 'Mobile Programming'}}, {cost: {$gt: 10000}}]});
+
+db.projects.aggregate({$limit: 2});
+db.projects.aggregate({$skip: 2});
+db.projects.aggregate({$sort: {name: 1}}).pretty();
+db.projects.aggregate([{$match: {name: 'Company Website'}}]);
+
+db.projects.aggregate([
+	{$project: {projectDescription:{$concat:["$name"," - ", "$category"]}}}
+]);
+
+
+
+/***********************************************************************
+Update and delete
+/***********************************************************************
+
+db.projects.insert({
+  name: 'Test Project',
+  category: 'Web Design',
+  due_date: new Date('2016-12-12'),
+  technologies: ['HTML', 'CSS', 'JavaScript'],
+  developers: [
+    {
+      name:'Brad Traversy',
+      role: 'Head Programmer'   
+    },
+    {
+      name:'John Doe',
+      role: 'Designer'
+    }
+  ],
+  client: {
+    name: 'Brandon Harold',
+    email: 'bharold@gmail.com',
+    phone: '555-555-5555'
+  },
+  cost: 3500
+});
+
+// Update
+db.projects.update({name:'Test Project'},{
+  name: 'Test Project',
+  category: 'Web Design',
+  due_date: new Date('2016-12-12'),
+  technologies: ['HTML', 'CSS', 'JavaScript'],
+  developers: [
+    {
+      name:'Brad Traversy',
+      role: 'Head Programmer'   
+    },
+    {
+      name:'John Doe',
+      role: 'Designer'
+    }
+  ],
+  client: {
+    name: 'Brandon Harold',
+    email: 'bharold@gmail.com',
+    phone: '555-555-5555'
+  },
+  cost: 3500
+});
+
+// $set Operator
+db.projects.update({name:'Test Project'},{
+  $set: {
+    category:'Web programming'
+  }
+});
+
+// Update Array Val
+db.projects.update({name:'Test Project'},{
+  $set: {
+    "technologies.0":"HTML 5",
+    "technologies.1":"CSS 3"
+  }
+});
+
+// Update Object Val
+db.projects.update({name:'Test Project'},{
+  $set: {
+    "client.name":"Bret Harold"
+  }
+});
+
+// Push To Array
+db.projects.update({name:'Test Project'},{
+  $push: {
+    technologies:"PHP"
+  }
+});
+
+// Pull From Array
+db.projects.update({name:'Test Project'},{
+  $pull: {
+    technologies:"PHP"
+  }
+});
+
+// Pop From Array
+db.projects.update({name:'Test Project'},{
+  $pop: {
+    technologies:1
+  }
+});
+
+// Update Doc That Doesnt Exist
+db.projects.update({name:'My Project'},{
+  name:'My Project',
+  category: 'Web Design'
+});
+
+// Upsert Option
+db.projects.update({name:'My Project'},{
+  name:'My Project',
+  category: 'Web Design'
+},
+  {
+    upsert:true
+  }
+);
+
+// Findandmodify
+db.projects.findAndModify({
+  query: {name:'My Project'},
+  update: {$set: {category:' Web Programming'}},
+  upsert: true
+});
+
+// Remove Docs
+db.projects.remove({name:'My Project'});

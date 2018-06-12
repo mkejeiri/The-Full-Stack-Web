@@ -1,0 +1,218 @@
+/******************************************************************************
+*	Index.html
+****************************************************************************/
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Learning TypeScript</title>
+</head>
+<body>
+    <div>
+           HW
+    </div>
+    <script src="types.js"></script>
+    <script src="functions.js"></script>
+    <script src="interfaces.js"></script>
+    <script src="class.js"></script>
+</body>
+</html> 
+/******************************************************************************
+*	Types 
+****************************************************************************/
+let myString: string;
+let myNum: number;
+let myBool:boolean;
+let myVar:any;
+
+// let strArr:string[];
+// let numArr:number[];
+// let bolArr:boolean[];
+
+let strArr:Array<string>;
+let numArr:Array<number>;
+let bolArr:Array<boolean>;
+let strNumTuple:[string, number];
+let myVoid:void;
+
+
+myString ="hello world!".slice(0,3);
+myNum=22;
+myBool=false;
+myVar='hello';
+myVar=true;
+myVar=1;
+//strArr=['hello',"world",1]; //ERR: ype '(string | number)[]' is not assignable to type 'string[]'.
+strArr=['hello',"world"];
+numArr=[1,2,3];
+bolArr=[true,false, true];
+strNumTuple=['hello',4];
+//strNumTuple=[4,'hello']; //ERR: Type '[number, string]' is not assignable to type '[string, number]'.
+                        //Type 'number' is not assignable to type 'string'.
+strNumTuple=['hello',4,1,2,3]; //Once we pass the pattern it will work...
+// console.log(myString); 
+// console.log(myNum);
+// console.log(myBool);
+// console.log(myVar);
+// console.log(strArr);
+// console.log(numArr);
+// console.log(bolArr);
+// console.log(strNumTuple);
+// myVoid=null;
+// myVoid=undefined;
+//myVoid=1; //ERR:Type '1' is not assignable to type 'void'.
+
+let myNull:null;
+let myUndefined:undefined;
+
+console.log(myVoid);
+console.log(myNull);
+console.log(myUndefined);
+
+
+
+/******************************************************************************
+*	Functions 
+****************************************************************************/
+
+function getSum(num1:number, num2:number):number{
+    return num1+num2;
+    //return 'hello';//ERR:Type '"hello"' is not assignable to type 'number'.
+}
+console.log(getSum(1,4));
+//console.log(getSum('hello',4)); //ERR: Argument of type '"hello"' is not assignable to parameter of type 'number'.
+let mySum = function(num1:number,num2:number):number {
+    return num1+num2;
+}
+
+let mySumAny = function(num1:any,num2:any):number {
+    if (typeof num1 =='string') {
+        num1 = parseInt(num1);
+    }
+    if (typeof num2 =='string') {
+        num2 = parseInt(num2);
+    }
+    return num1+num2;
+}
+function getName(firstName:string, lastName:string):string {
+    return firstName+' '+lastName; 
+}
+
+
+function getNameOptLastName(firstName:string, lastName?:string):string {
+    if (lastName == undefined) {
+        return firstName;    
+    } 
+    return firstName+' '+lastName; 
+}
+
+function myVoid():void {
+    return; //OK
+    //return 3; //ERR: Type '3' is not assignable to type 'void'.
+}
+console.log(mySum(1,5));
+console.log(mySumAny('2','5'));
+console.log(getName('John','Doe'));
+console.log(getNameOptLastName('John'));
+
+
+/******************************************************************************
+*	Interfaces 
+****************************************************************************/
+
+
+// function showTodo(todo:{title:string, text:string}) {
+//     console.log(todo.title +'  '+ todo.text );   
+// }
+
+// let myTodo={title:"title", text:'text'};
+// showTodo(myTodo);
+
+
+interface Todo{
+    title:string,
+    text:string;
+}
+
+function showTodo(todo:Todo) {
+    console.log(todo.title +' '+ todo.text);
+}
+
+
+let myTodo={title:"title", text:'text'};
+// let myTodo={title:1, text:'text'};// ERR: to parameter of type 'Todo'. Types of property 'title' are incompatible.   Type 'number' is not assignable to type 'string'.
+showTodo(myTodo);
+
+
+/******************************************************************************
+*	Classes 
+****************************************************************************/
+class User implements UserInterface {
+    private name:string;
+    public email:string; //public is by default for properties and methods.
+    protected age:number;
+
+    constructor(name:string, email:string, age:number){
+        this.name = name;
+        this.email = email;
+        this.age = age;
+        console.log('User Created '+this.name);
+    }
+    private registerPrivate(){
+        console.log(this.name+' is registered'); 
+    }
+    /*public by default*/register(){ 
+        console.log(this.name+' is now registered'); 
+    }
+    protected payInvoice(){
+        console.log(this.name + ' payInvoice protected');
+    }
+    payInvoicePublic(){
+        console.log(this.name + ' payInvoice');
+    }
+}
+
+let john= new User('john doe','jdoe@gmail.com',34);
+console.log(john.email);
+//console.log(john.age); //ERR: Property 'age' is protected and only accessible within class 'User' and its subclasses.
+//john.registerPrivate();//ERR: Property 'registerPrivate' is private and only accessible within class 'User'.
+
+john.register();
+
+
+class Member extends User{
+    id:number;
+    constructor(id:number,name:string, email:string, age:number ){
+        super(name,email,age);
+        this.id = id;
+    }
+    payInvoice(){
+        super.payInvoice();
+    }
+
+}
+
+interface UserInterface{
+    register();
+    //payInvoice(); //ERR: Class 'User' incorrectly implements interface 'UserInterface'.
+                    //Property 'payInvoice' is protected in type 'User' but public in type 'UserInterface'.
+    payInvoicePublic();
+}
+
+
+
+let bob: Member = new Member(1,'Bob Dylan','bdylan@gmail.com',34);
+bob.register();
+bob.payInvoice();
+bob.payInvoicePublic();
+
+let adam : UserInterface;
+adam = new  User('Intefacejohn doe','Intjdoe@gmail.com',34);
+adam.register();
+adam.payInvoicePublic();
+
+------------
+
+
+

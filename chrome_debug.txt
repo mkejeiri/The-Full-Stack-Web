@@ -1,0 +1,39 @@
+localStorage.setItem('name', 'John Doe');
+console.log(localStorage.getItem('person'));
+
+sessionStorage.setItem('greeting', 'Hello World');
+console.log(sessionStorage.getItem('greet'));
+
+
+//you need to run it in a server
+document.cookie = "name:John Doe";
+var x = document.cookie;
+console.log(x);
+
+
+//Create Database : http://html5doctor.com/introducing-web-sql-databases/
+var mydb = openDatabase('testdb','0.1','Test database', 1024*1024);
+
+//create a table
+
+mydb.transaction(function(t){
+  t.executeSql("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, NAME VARCHAR(50))");  
+});
+
+//insert a record
+mydb.transaction(function(t){
+  //t.executeSql('INSERT INTO users (name) values ("John Doe")'); //OR
+   t.executeSql("INSERT INTO users (name) values (?)",['John Doe']);
+});
+
+//select data
+mydb.transaction(function(t){
+  t.executeSql("select * from users",[], function(tx, results){
+    var len = results.rows.length, i;
+    for (i = 0; i < len; i++) {
+      console.log(results.rows.item(i).NAME);  
+    }
+  });  
+});
+
+//download chrome extension "PageSpeed Insights for Chrome" it will appear in next to 'audits', it makes some proposal about how to improve your website.	

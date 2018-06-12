@@ -1,0 +1,173 @@
+---------------------- Lecture 3 - Form Events
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">	
+	<title>jQuery|basics & forms</title>
+	<!-- <script src="js/jquery-3.2.1.min.js"></script> -->
+	<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+</head>
+<body>
+	<form id="myForm">
+		<div>
+			<label>Name:</label><br>
+			<input type="text">
+		</div>
+		<div>
+			<label>Email:</label><br>
+			<input type="text">
+		</div>
+
+		<div>
+			<label>Location:</label><br>
+			<input type="text" value="New york">
+		</div>
+		<div>
+			<label>Category:</label><br>
+			<select>
+				<option value="1">Category 1</option>
+				<option value="2">Category 2</option>
+				<option value="3">Category 3</option>
+			</select>
+		</div>
+		<input type="submit" value="Submit">		
+	</form>
+	<br><br>
+	<div id="output"></div>
+
+
+
+	<script>
+		//short hand
+		$(function(e) {
+			//focus and blur events
+			$('#myForm input').focus(function(argument) {
+				$(this).css('background','pink');
+				$(this).blur(function(argument) {
+					$(this).css('background','none');
+				});
+			});
+		})
+
+		//change events
+		$('#myForm select').change(function(argument) {
+			var cat ='';
+			$('select option:selected').each(function (argument) {				
+				cat+=$(this).text() + " ";
+			});
+			$('#output').text(cat);
+		});
+
+
+		//select Event
+		$(':input').select(function(argument) {
+			$('#output').text('something was selected').show().fadeOut(3000);//1000ms=s
+		})
+
+		//submit event
+		$('#myForm').submit(function (e) {
+			e.preventDefault();
+			$('#output').text('Form Submitted');
+		})
+
+		//keyup and keydown events
+		$('#myForm').keydown(function(e) {
+			$('#output').text('You are typing...');
+			$(this).keyup(function (ev) {
+				$('#output').text('');
+			})
+		})
+
+		/*
+		//long hand 
+		$(document).ready(function(e) {
+			alert('hello');
+		})
+
+		*/
+	</script>
+	
+</body>
+</html>
+
+---------------------- Lecture 2 - Selectors & Mouse Events
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery|basics & events</title>
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<style>
+		#square{
+			background: red;
+			width: 200px;
+			height:200px;
+		}
+	</style>
+
+</head>
+<body>
+	<p class="p1">this is a paragraph</p>
+	<p>this is another paragraph</p>
+	<button id="myBtn">click</button>
+	<br><br>
+	<div id="square"></div>
+	<br><br>
+	<div id="output"></div>
+
+
+
+	<script>
+		$(document).ready(function() {
+
+			$("#square").mousemove(function(e) {
+				msg='Mouse position: ';
+				msg+=e.pageX + ' - ' + e.pageY;
+				$('#output').html('<div>'+msg+'</div>');
+			});
+
+
+			
+			$('#square').mousedown(function(e) {
+				$(this).text('hovering...');				
+			})
+
+			$('#square').mouseup(function (ev) {
+				$(this).text('');
+			})
+			$('#square').mouseenter(function(e) {
+				$(this).text('hovering...');
+			});
+
+			$('#square').mouseout(function(ev) {
+				$(this).text('');
+			})
+			$('#square').hover(function(e) {
+				$(this).text('hovering...');
+			
+			}, function (ev) {
+				$(this).text('');
+			})
+
+			$('.p1').hide();
+			//short hand syntax
+			$('#myBtn').click(function(e) {				
+				console.log('you just clicked');
+			})
+
+			//long hand syntax
+			$('#myBtn').on('click',function(e) {
+				console.log('you just clicked');
+			})
+			$('#myBtn').click(function(e) {
+				$('.p1').hide();
+				$('.p1').toggle();
+
+			})
+		});		
+	</script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+----------Lecture 3 - Javascript : Ajax fetching data from github
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Ajax</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+    img {
+      width: 100%;
+    }
+
+    </style>
+  </head>
+  <body>
+    <div class="">
+      <form id="userform">
+        <div class="form-group">
+          <label>Github UserName:</label>
+          <input type="text" id="username" class="form-control">
+        </div>
+      </form>
+    </div>
+    <div id="profile">
+    </div>
+    <script>
+    function getProfile() {
+      userName=document.getElementById('username').value;
+      if (userName =='' || userName.length <2 ){
+        userName='bob';
+      }
+      console.log(userName);
+
+      var xhttp;
+      if  (window.XMLHttpRequest) {
+        console.log("XMLHttpRequest");
+        xhttp=new XMLHttpRequest();
+      }else {
+        //code for IE6, IE5
+        xhttp=new ActiveXObject("Microsoft.XMLHTTP");
+      }
+
+      xhttp.onreadystatechange=function() {
+        if (this.readyState == 4 && this.status == 200) {
+          user=JSON.parse(this.responseText);
+          document.getElementById('profile').innerHTML=`
+          <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">${user.name}</h3>
+                </div>
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <img src="${user.avatar_url}">
+                    </div>
+                    <div class="col-md-9">
+                    <span class="label label-primary">Public Repos ${user.repos_url}</span>
+                    <br><br>
+                    <span class="label label-danger">Public Gists ${user.gists_url}</span>
+                    <br><br>
+                      <ul class="list-group">
+                        <li class="list-group-item">Website: ${user.blog}</li>
+                        <li class="list-group-item">Location: ${user.location}</li>
+                      </ul>
+                      <a class="btn btn-default" href="${user.html_url}" target='_blank'>Visit Github</a>
+                    </div>
+                </div>
+                </div>
+          </div>`;
+        }
+      };
+      xhttp.open('GET','https://api.github.com/users/'+userName);
+      xhttp.send();
+    }
+    getProfile('bob');
+    document.getElementById('userform').addEventListener('keydown',getProfile,false);
+    </script>
+  </body>
+</html>
+----------Lecture 2 - fetching a file from a server and display its content
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Ajax</title>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+  </head>
+  <body>
+    <button type="button" id="button">Get file Content</button>
+    <h1 id="maintext"></h1>
+    <script>
+        function getFile() {
+          var xhttp;
+          if  (window.XMLHttpRequest) {
+            console.log("XMLHttpRequest");
+            xhttp=new XMLHttpRequest();
+          }else {
+            //code for IE6, IE5
+            xhttp=new ActiveXObject("Microsoft.XMLHTTP");
+          }
+          xhttp.onreadystatechange=function () {
+            if (this.readyState == 4 && this.status == 200) {
+              console.log("inside onReadyStateChange");
+              document.getElementById('maintext').innerHTML=this.responseText;
+            } else {
+              console.log(xhttp.readyState);
+            }
+          };
+          xhttp.open('GET','file.txt',true);
+          xhttp.send();
+        }
+      document.getElementById('button').addEventListener('click',getFile);
+    </script>
+  </body>
+</html>
+
+----------Lecture 1 - Javascript
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Javascript variable and arrays & object</title>
+  </head>
+  <body>
+    <div class="" id="test">
+    </div>
+    <script>
+      //output
+      document.getElementById('test').innerHTML="Testing ...";
+
+      // variables
+      var x=0;
+      var y=2;
+      console.log(x+y);
+      var a=1,b=2;
+
+      Array
+      var animals=['Dog','Cat','Horse'];
+      console.log(animals[1]);
+      console.log(animals.sort());
+      console.log(animals.sort()[1]);
+      animals.push('Rabbit');
+      console.log(animals.sort());
+      console.log(animals.length);
+
+      var persons=[];
+      persons['name']='John Doe';
+      persons['age']=34;
+      persons['City']='new york';
+      persons['Preference']=['cinema','drinks','sport'];
+      persons['Daily']={stop:'coffee shop', talk:'ladies only',continue:'to work'};
+      console.log(persons);
+      var cars={make:'ford', model:'Mustang', year:1964};
+      console.log(cars);
+
+      var cars =[
+        {make:'ford', model:'Mustang', year:1964},
+        {make:'chevy', model:'impala', year:1978},
+        {make:'toyota', model:'camry', year:2015}
+      ];
+        console.log(cars);
+
+      // associative arrays
+      var cars=[];
+      cars['first'] ={make:'ford', model:'Mustang', year:1964};
+      cars['second'] ={make:'chevy', model:'impala', year:1978};
+      cars['third'] ={make:'toyota', model:'camry', year:2015};
+      console.log(cars);
+
+      var cars={first:{make:'ford', model:'Mustang', year:1964},
+        second: {make:'chevy', model:'impala', year:1978},
+        third: {make:'toyota', model:'camry', year:2015}
+      };
+      console.log(cars);
+
+
+
+    </script>
+  </body>
+</html>
